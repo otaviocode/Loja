@@ -3,7 +3,11 @@ package com.loja.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.loja.enums.TipoEndereco;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +24,9 @@ public class Endereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Enumerated(EnumType.STRING)
+	private TipoEndereco tipoEndereco;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_endereco")
 	private Long id;
@@ -35,6 +42,14 @@ public class Endereco implements Serializable {
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(name = "pessoa_fk"))
 	private Pessoa pessoa;
+
+	public TipoEndereco getTipoEndereco() {
+		return tipoEndereco;
+	}
+
+	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+		this.tipoEndereco = tipoEndereco;
+	}
 
 	public Long getId() {
 		return id;
